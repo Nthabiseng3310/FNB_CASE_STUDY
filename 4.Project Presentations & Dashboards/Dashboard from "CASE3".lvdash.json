@@ -1,0 +1,705 @@
+{
+  "datasets": [
+    {
+      "name": "0ce4c239",
+      "displayName": "FNB Data",
+      "queryLines": [
+        "SELECT\n",
+        "  Date,\n",
+        "  DATE_TRUNC('month', Date) AS Month,\n",
+        "  DATE_FORMAT(Date, 'MMM yyyy') AS Month_Year,\n",
+        "  Month_name,\n",
+        "  Year,\n",
+        "  Day_Name,\n",
+        "  Quantity_Sold,\n",
+        "  Sales_Rounded,\n",
+        "  Cost_Of_Sales_Rounded,\n",
+        "  Profit,\n",
+        "  Gross_Profit_Percentage,\n",
+        "  Price_Per_Unit,\n",
+        "  Unit_Cost,\n",
+        "  Gross_Profit_Pct_Per_Unit,\n",
+        "  Period_Type\n",
+        "FROM\n",
+        "  `workspace`.`default`.`fnb_final_daily`"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "c78d4870",
+      "displayName": "Visualisations",
+      "layout": [
+        {
+          "widget": {
+            "name": "9e45d441",
+            "queries": [
+              {
+                "name": "980e471f41ca41c0a7bf3c9fdcac9104",
+                "query": {
+                  "datasetName": "0ce4c239",
+                  "fields": [
+                    {
+                      "name": "Day_Name",
+                      "expression": "`Day_Name`"
+                    },
+                    {
+                      "name": "column_fc82e278110",
+                      "expression": "SUM(`Sales_Rounded`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 0,
+              "viz_spec": {
+                "display_name": "Visualization 1",
+                "viz_type": "CHART",
+                "serialized_options": "{\"isAggregationOn\":true,\"series\":{\"error_y\":{\"type\":\"data\",\"visible\":true},\"stacking\":null},\"coefficient\":1,\"yAxis\":[{\"type\":\"-\"},{\"opposite\":true,\"type\":\"-\"}],\"columnConfigurationMap\":{\"x\":{\"column\":\"Day_Name\",\"id\":\"column_fc82e278112\"},\"y\":[{\"column\":\"Sales_Rounded\",\"id\":\"column_fc82e278110\",\"transform\":\"SUM\"}]},\"alignYAxesAtZero\":true,\"direction\":{\"type\":\"counterclockwise\"},\"swappedAxes\":false,\"percentFormat\":\"0[.]00%\",\"textFormat\":\"\",\"legend\":{\"traceorder\":\"normal\"},\"globalSeriesType\":\"line\",\"version\":2,\"sizemode\":\"diameter\",\"seriesOptions\":{\"column_fc82e278110\":{\"type\":\"line\",\"yAxis\":0}},\"error_y\":{\"type\":\"data\",\"visible\":true},\"sortX\":true,\"showDataLabels\":false,\"missingValuesAsZero\":true,\"useAggregationsUi\":true,\"numberFormat\":\"0,0.[00000]\",\"dateTimeFormat\":\"DD/MM/YYYY HH:mm\",\"sortY\":true,\"valuesOptions\":{},\"xAxis\":{\"labels\":{\"enabled\":true},\"type\":\"-\"}}",
+                "query_name": "980e471f41ca41c0a7bf3c9fdcac9104"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "0ef32fc2",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "0ce4c239",
+                  "fields": [
+                    {
+                      "name": "Period_Type",
+                      "expression": "`Period_Type`"
+                    },
+                    {
+                      "name": "sum(Profit)",
+                      "expression": "SUM(`Profit`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "Profit by Promotion Period",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "Period_Type",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(Profit)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "9747e77c",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "0ce4c239",
+                  "fields": [
+                    {
+                      "name": "Month",
+                      "expression": "`Month`"
+                    },
+                    {
+                      "name": "sum(Cost_Of_Sales_Rounded)",
+                      "expression": "SUM(`Cost_Of_Sales_Rounded`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "Cost vs Profit by Month",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "Month",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(Cost_Of_Sales_Rounded)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "6b796630",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "0ce4c239",
+                  "fields": [
+                    {
+                      "name": "Month",
+                      "expression": "`Month`"
+                    },
+                    {
+                      "name": "sum(Quantity_Sold)",
+                      "expression": "SUM(`Quantity_Sold`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Quantity Sold by Month"
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "Month",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(Quantity_Sold)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "c9eae526",
+      "displayName": "More Visuals",
+      "layout": [
+        {
+          "widget": {
+            "name": "39237665",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "0ce4c239",
+                  "fields": [
+                    {
+                      "name": "monthly(Date)",
+                      "expression": "DATE_TRUNC(\"MONTH\", `Date`)"
+                    },
+                    {
+                      "name": "sum(Gross_Profit_Percentage)",
+                      "expression": "SUM(`Gross_Profit_Percentage`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "monthly(Date)",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(Gross_Profit_Percentage)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "9d0d4786",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "0ce4c239",
+                  "fields": [
+                    {
+                      "name": "sum(Gross_Profit_Percentage)",
+                      "expression": "SUM(`Gross_Profit_Percentage`)"
+                    },
+                    {
+                      "name": "Period_Type",
+                      "expression": "`Period_Type`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "funnel",
+              "encodings": {
+                "x": {
+                  "fieldName": "sum(Gross_Profit_Percentage)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "Period_Type",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "f3ec9d44",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "0ce4c239",
+                  "fields": [
+                    {
+                      "name": "sum(Unit_Cost)",
+                      "expression": "SUM(`Unit_Cost`)"
+                    },
+                    {
+                      "name": "sum(Cost_Of_Sales_Rounded)",
+                      "expression": "SUM(`Cost_Of_Sales_Rounded`)"
+                    },
+                    {
+                      "name": "sum(Price_Per_Unit)",
+                      "expression": "SUM(`Price_Per_Unit`)"
+                    },
+                    {
+                      "name": "sum(Quantity_Sold)",
+                      "expression": "SUM(`Quantity_Sold`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 4,
+              "widgetType": "pivot",
+              "encodings": {
+                "cells": {
+                  "fields": [
+                    {
+                      "fieldName": "sum(Unit_Cost)",
+                      "cellType": "text"
+                    },
+                    {
+                      "fieldName": "sum(Cost_Of_Sales_Rounded)",
+                      "cellType": "text"
+                    },
+                    {
+                      "fieldName": "sum(Price_Per_Unit)",
+                      "cellType": "text"
+                    },
+                    {
+                      "fieldName": "sum(Quantity_Sold)",
+                      "cellType": "text"
+                    }
+                  ],
+                  "displayAs": "rows"
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "65d9d7d4",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "0ce4c239",
+                  "fields": [
+                    {
+                      "name": "sum(Quantity_Sold)",
+                      "expression": "SUM(`Quantity_Sold`)"
+                    },
+                    {
+                      "name": "Year",
+                      "expression": "`Year`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Quantity Sold by Year"
+              },
+              "version": 3,
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "sum(Quantity_Sold)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "Year",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "31e9bb7f",
+      "displayName": "Profibility",
+      "layout": [
+        {
+          "widget": {
+            "name": "12789fda",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "0ce4c239",
+                  "fields": [
+                    {
+                      "name": "monthly(Date)",
+                      "expression": "DATE_TRUNC(\"MONTH\", `Date`)"
+                    },
+                    {
+                      "name": "sum(Price_Per_Unit)",
+                      "expression": "SUM(`Price_Per_Unit`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "monthly(Date)",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(Price_Per_Unit)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "77814a4c",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "0ce4c239",
+                  "fields": [
+                    {
+                      "name": "Sales_Rounded",
+                      "expression": "`Sales_Rounded`"
+                    },
+                    {
+                      "name": "sum(Cost_Of_Sales_Rounded)",
+                      "expression": "SUM(`Cost_Of_Sales_Rounded`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Cost of Sales by Sales"
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "Sales_Rounded",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(Cost_Of_Sales_Rounded)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "c87bdb99",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "0ce4c239",
+                  "fields": [
+                    {
+                      "name": "monthly(Date)",
+                      "expression": "DATE_TRUNC(\"MONTH\", `Date`)"
+                    },
+                    {
+                      "name": "sum(Gross_Profit_Pct_Per_Unit)",
+                      "expression": "SUM(`Gross_Profit_Pct_Per_Unit`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "monthly(Date)",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(Gross_Profit_Pct_Per_Unit)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "a236e6ae",
+      "displayName": "Global Filters",
+      "layout": [
+        {
+          "widget": {
+            "name": "430711a8",
+            "queries": [
+              {
+                "name": "dashboards/01f1b16180f614a1bd8347b17cd0d169/datasets/980e471f41ca41c0a7bf3c9fdcac9104_Date",
+                "query": {
+                  "datasetName": "0ce4c239",
+                  "fields": [
+                    {
+                      "name": "Date",
+                      "expression": "`Date`"
+                    },
+                    {
+                      "name": "Date_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "Date",
+                    "queryName": "dashboards/01f1b16180f614a1bd8347b17cd0d169/datasets/980e471f41ca41c0a7bf3c9fdcac9104_Date"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_GLOBAL_FILTERS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
